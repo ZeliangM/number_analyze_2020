@@ -1,0 +1,26 @@
+import numpy as np
+A=np.array([[3,1],[1,2]])
+b=([5,5])
+#A=np.array([[3,1],[1,2]])
+#A=np.array([[6,3],[3,2]])
+#A=np.array([[2,-1,0,0,0],[-1,2,-1,0,0],[0,-1,2,-1,0],[0,0,-1,2,-1],[0,0,0,-1,2]])
+#A=np.array([[4,3,0],[3,4,-1],[0,-1,4]]) #系数矩阵
+#b=([3,5,-5]) 
+#b=np.array([1,0,0,0,0])
+#b=np.array([5,5])
+#b=np.array([0,-1])
+  
+x0=np.zeros_like(b) #初始值
+for i in range(1000):
+    r0=b-np.dot(A,x0) #负梯度方向
+    a=np.dot(r0,r0)/np.dot(np.dot(A,r0),r0) #迭代步长
+    x1=a*r0+x0   #迭代后的值
+    print(x1)
+    if sum(np.abs(x1-x0))<1e-6:  #控制迭代次数
+        break
+    r1=b-np.dot(A,x1)
+    x0=x1
+    r0=r1
+print("线性方程的解为{}".format(x0))
+print("迭代次数为:{}".format(i))
+print("精确解为：",(np.linalg.inv(A)).dot(b))
